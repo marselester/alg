@@ -1,14 +1,7 @@
-/*
-Package pqueue implements a priority-queue data type.
-
-Often, we accumulate items, then process the one with the largest key,
-and collect more items and process the current largest key.
-For example, process scheduler picks a process with the highest priority.
-*/
 package pqueue
 
 /*
-Heap (binary heap) is a data structure that can efficiently support priority-queue
+MaxHeap is a binary heap that can efficiently support priority-queue
 operations: insert (log n), remove maximum (log n). The keys are stored in an array
 such that each key is guaranted to be >= the keys at two other positions.
 This ordering represents a binary tree with edges from each key to the 2 smaller keys:
@@ -17,22 +10,23 @@ their children in positions 4, 5, 6, 7.
 
 Parent of a[i] node is at a[i/2], children are at a[2*i] and a[2*i+1].
 */
-type Heap struct {
+type MaxHeap struct {
+	// pq is a heap-ordered binary tree of string items.
 	pq []string
 }
 
-// NewHeap creates a binary heap of size n.
-func NewHeap(n int) *Heap {
-	h := Heap{
+// NewMaxHeap creates a binary heap of size n.
+func NewMaxHeap(n int) *MaxHeap {
+	h := MaxHeap{
 		pq: make([]string, 0, n+1),
 	}
 	h.pq = append(h.pq, "-")
 	return &h
 }
 
-// Insert adds the new item at the end of the array, and then swim up through the heap
+// Insert adds the new item at the end of the array, and then swims up through the heap
 // with that item to restore the heap condition.
-func (h *Heap) Insert(item string) {
+func (h *MaxHeap) Insert(item string) {
 	h.pq = append(h.pq, item)
 	h.swim(len(h.pq) - 1)
 }
@@ -40,7 +34,7 @@ func (h *Heap) Insert(item string) {
 // Max takes the largest item off the top, puts the item from the end of the heap at the top,
 // decrements the size of the heap, and then sinks down through the heap with that item
 // to restore the heap condition.
-func (h *Heap) Max() string {
+func (h *MaxHeap) Max() string {
 	if len(h.pq) <= 1 {
 		return ""
 	}
@@ -52,7 +46,7 @@ func (h *Heap) Max() string {
 }
 
 // Size returns size of the heap.
-func (h *Heap) Size() int {
+func (h *MaxHeap) Size() int {
 	return len(h.pq) - 1
 }
 
@@ -60,7 +54,7 @@ func (h *Heap) Size() int {
 // a priority of some node i is increased (or a new node is added at the bottom of a heap).
 // Exchange node with parent if it violates heap order (larger key than parent)
 // until we reach a node with larger key, or the root.
-func (h *Heap) swim(i int) {
+func (h *MaxHeap) swim(i int) {
 	var parent int
 	for i > 1 {
 		parent = i / 2
@@ -77,7 +71,7 @@ func (h *Heap) swim(i int) {
 // a priority of some node i is decreased. For example, a root node is replaced with a smaller key.
 // Exchange node with the largest child if it violates heap order (smaller key than one or both of its children's keys)
 // until we reach a node with both children smaller (or equal), or the bottom.
-func (h *Heap) sink(i int) {
+func (h *MaxHeap) sink(i int) {
 	var child int
 	for {
 		// Find the largest child.

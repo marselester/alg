@@ -29,7 +29,7 @@ func equal(s1, s2 []string) bool {
 	return true
 }
 
-func TestHeapSwim(t *testing.T) {
+func TestMaxHeapSwim(t *testing.T) {
 	tt := []struct {
 		pq   []string
 		i    int
@@ -52,7 +52,7 @@ func TestHeapSwim(t *testing.T) {
 		},
 	}
 	for _, tc := range tt {
-		h := Heap{pq: tc.pq}
+		h := MaxHeap{pq: tc.pq}
 		h.swim(tc.i)
 		if !equal(h.pq, tc.want) {
 			t.Errorf("swim(%d) got %v, want %v", tc.i, h.pq, tc.want)
@@ -60,7 +60,7 @@ func TestHeapSwim(t *testing.T) {
 	}
 }
 
-func TestHeapSink(t *testing.T) {
+func TestMaxHeapSink(t *testing.T) {
 	tt := []struct {
 		pq   []string
 		i    int
@@ -83,7 +83,7 @@ func TestHeapSink(t *testing.T) {
 		},
 	}
 	for _, tc := range tt {
-		h := Heap{pq: tc.pq}
+		h := MaxHeap{pq: tc.pq}
 		h.sink(tc.i)
 		if !equal(h.pq, tc.want) {
 			t.Errorf("sink(%d) got %v, want %v", tc.i, h.pq, tc.want)
@@ -91,7 +91,7 @@ func TestHeapSink(t *testing.T) {
 	}
 }
 
-func TestHeapInsert(t *testing.T) {
+func TestMaxHeapInsert(t *testing.T) {
 	tt := []struct {
 		pq   []string
 		item string
@@ -119,7 +119,7 @@ func TestHeapInsert(t *testing.T) {
 		},
 	}
 	for _, tc := range tt {
-		h := Heap{pq: tc.pq}
+		h := MaxHeap{pq: tc.pq}
 		h.Insert(tc.item)
 		if !equal(h.pq, tc.want) {
 			t.Errorf("Insert(%q) got %v, want %v", tc.item, h.pq, tc.want)
@@ -127,7 +127,7 @@ func TestHeapInsert(t *testing.T) {
 	}
 }
 
-func TestHeapMax(t *testing.T) {
+func TestMaxHeapMax(t *testing.T) {
 	tt := []struct {
 		pq   []string
 		max  string
@@ -165,7 +165,7 @@ func TestHeapMax(t *testing.T) {
 		},
 	}
 	for _, tc := range tt {
-		h := Heap{pq: tc.pq}
+		h := MaxHeap{pq: tc.pq}
 		if got := h.Max(); got != tc.max {
 			t.Errorf("Max() = %q, want %q", got, tc.max)
 		}
@@ -175,20 +175,20 @@ func TestHeapMax(t *testing.T) {
 	}
 }
 
-func TestHeap(t *testing.T) {
-	h := NewHeap(1)
+func TestMaxHeap(t *testing.T) {
+	h := NewMaxHeap(1)
 	h.Insert("P")
 	h.Insert("Q")
 	h.Insert("E")
 	want := []string{"-", "Q", "P", "E"}
 	if !equal(h.pq, want) {
-		t.Errorf("Heap inserted P, Q, E got %v, want %v", h.pq, want)
+		t.Errorf("MaxHeap inserted P, Q, E got %v, want %v", h.pq, want)
 	}
 
 	h.Max()
 	want = []string{"-", "P", "E"}
 	if !equal(h.pq, want) {
-		t.Errorf("Heap removed Q %v, want %v", h.pq, want)
+		t.Errorf("MaxHeap removed Q %v, want %v", h.pq, want)
 	}
 
 	h.Insert("X")
@@ -196,13 +196,13 @@ func TestHeap(t *testing.T) {
 	h.Insert("M")
 	want = []string{"-", "X", "M", "P", "A", "E"}
 	if !equal(h.pq, want) {
-		t.Errorf("Heap inserted X, A, M got %v, want %v", h.pq, want)
+		t.Errorf("MaxHeap inserted X, A, M got %v, want %v", h.pq, want)
 	}
 
 	h.Max()
 	want = []string{"-", "P", "M", "E", "A"}
 	if !equal(h.pq, want) {
-		t.Errorf("Heap removed X %v, want %v", h.pq, want)
+		t.Errorf("MaxHeap removed X %v, want %v", h.pq, want)
 	}
 
 	h.Insert("P")
@@ -210,12 +210,12 @@ func TestHeap(t *testing.T) {
 	h.Insert("E")
 	want = []string{"-", "P", "P", "L", "A", "M", "E", "E"}
 	if !equal(h.pq, want) {
-		t.Errorf("Heap inserted P, L, E got %v, want %v", h.pq, want)
+		t.Errorf("MaxHeap inserted P, L, E got %v, want %v", h.pq, want)
 	}
 
 	h.Max()
 	want = []string{"-", "P", "M", "L", "A", "E", "E"}
 	if !equal(h.pq, want) {
-		t.Errorf("Heap removed P %v, want %v", h.pq, want)
+		t.Errorf("MaxHeap removed P %v, want %v", h.pq, want)
 	}
 }
