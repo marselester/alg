@@ -2,6 +2,8 @@ package symboltable
 
 // BinarySearch represents a symbol table based on a binary search algorithm.
 // Keys are stored in an ordered array to reduce number of compares required for each search.
+// Despite its logarithmic search, Put method is slow (worst 2n, average n)
+// when the key is not already in the symbol table.
 type BinarySearch struct {
 	keys   []string
 	values []int

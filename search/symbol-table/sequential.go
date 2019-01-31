@@ -1,7 +1,14 @@
 package symboltable
 
 // SequentialSearch represents a symbol table based on a linked list that contains
-// unique keys and associated values. The average number of compares for a random search hit is n/2.
+// unique keys and associated values. The average number of compares for a random search hit is n/2,
+// worst case cost is n.
+//
+// Move-to-front heuristic can be used to make frequently accessed keys likely to be found early:
+// on every search hit, move the key-value pair to the beginning of the list.
+// Then move all pairs between the beginning and the vacated position to the right one position.
+//
+// The location of the most recently accessed key can be cached to optimize Get.
 type SequentialSearch struct {
 	first *node
 }
