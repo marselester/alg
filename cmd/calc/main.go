@@ -7,11 +7,11 @@ It takes a string as input expression and produces the number represented by the
 An expression consists of parenthesis, operators, and operands (numbers).
 The Dijkstra's two-stack arithmetic expression-evaluation algorithm:
 
-- push operands onto the operand stack
-- push operators onto the operator stack
-- ignore left parentheses
-- on encountering a right parenthesis, pop an operator, pop the requisite number of operands,
-  and push onto the operand stack the result of applying that operator to those operands.
+	- push operands onto the operand stack
+	- push operators onto the operator stack
+	- ignore left parentheses
+	- on encountering a right parenthesis, pop an operator, pop the requisite number of operands,
+	and push onto the operand stack the result of applying that operator to those operands.
 
 After the final right parenthesis has been processed, there is one value on the stack,
 which is the value of the expression.

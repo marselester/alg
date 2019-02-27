@@ -1,10 +1,9 @@
 /*
 Program whitelist is a demo for binary search algorithm.
 Imagine a credit card company that needs to check whether customer transactions are
-for a valid account. To do so, it can
-- keep customers account numbers in a whitelist file,
-- produce the account number associated with each transaction in the standard input,
-- put onto standard output the numbers that are not associated with any customer.
+for a valid account. To do so, it can keep customers account numbers in a whitelist file,
+produce the account number associated with each transaction in the standard input,
+put onto standard output the numbers that are not associated with any customer.
 */
 package main
 
@@ -17,7 +16,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/marselester/alg/search/binary-search"
+	bsearch "github.com/marselester/alg/search/binary-search"
 )
 
 func main() {

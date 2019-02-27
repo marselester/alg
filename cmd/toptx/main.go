@@ -1,9 +1,16 @@
-// Program toptx finds top n transactions in the huge input stream (considered unbounded so it can't be sorted)
-// using priority queue. Comparing each new transaction against n largest seen so far is likely
-// to be expensive unless n is small.
-//
-// Expected output is 4747.08 4732.35 4409.74 4381.21 4121.85 of the following input:
-// 644.08 4121.85 2678.40 4409.74 837.42 3229.27 4732.35 4381.21 66.10 4747.08 2156.86 1025.70 2520.97 708.95 3532.36 4050.20.
+/*
+Program toptx finds top n transactions in the huge input stream (considered unbounded so it can't be sorted)
+using priority queue. Comparing each new transaction against n largest seen so far is likely
+to be expensive unless n is small.
+
+Given the following input
+
+	644.08 4121.85 2678.40 4409.74 837.42 3229.27 4732.35 4381.21 66.10 4747.08 2156.86 1025.70 2520.97 708.95 3532.36 4050.20
+
+expected output is
+
+	4747.08 4732.35 4409.74 4381.21 4121.85
+*/
 package main
 
 import (

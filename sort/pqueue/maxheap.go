@@ -3,7 +3,7 @@ package pqueue
 /*
 MaxHeap is a binary heap that can efficiently support priority-queue
 operations: insert (log n), remove maximum (log n). The keys are stored in an array
-such that each key is guaranted to be >= the keys at two other positions.
+such that each key is guaranteed to be >= the keys at two other positions.
 This ordering represents a binary tree with edges from each key to the 2 smaller keys:
 sequentially put the nodes in level order, with the root at index 1, its children at 2 and 3,
 their children in positions 4, 5, 6, 7.

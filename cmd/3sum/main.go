@@ -1,7 +1,8 @@
 /*
 Command 3sum counts the number of unordered triples in a file of n distinct integers that sum to zero.
 For example, second, eighth, and tenth entries sum to 0:
-324110, -442472, 626686, -157678, 508681, 123414, -77867, 155091, 129801, 287381.
+
+	324110, -442472, 626686, -157678, 508681, 123414, -77867, 155091, 129801, 287381
 
 The program is useful to study relationship between the problem size n and running time of 3sum.
 You can download data sets from https://algs4.cs.princeton.edu/code/algs4-data.zip.
