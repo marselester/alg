@@ -36,10 +36,19 @@ higher than for quicksort, mergesort, shellsort.
 
 ## Searching
 
-| data structure                  | pros | cons
+| data structure (algorithm)      | pros | cons
 | ---                             | ---  | ---
 | linked list (sequential search) | best for tiny symbol tables | slow for large symbol tables
 | ordered array (binary search)   | optimal search and space, order-based ops | slow insert
 | binary search tree              | easy to implement, order-based ops | no guarantess, space for links
 | balanced binary search tree     | optimal search and insert, order-based ops | space for links
 | hash table                      | fast search/insert | hash for each type, space for links/empty
+
+Worst and average-case costs for symbol-table implementations.
+
+| data structure (algorithm)      | worst (search, insert) | average (search, insert)
+| ---                             | ---                    | ---
+| linked list (sequential search) | n                      | n/2, n
+| ordered array (binary search)   | lg n, n                | lg n, n/2
+| binary search tree              | n                      | 1.39 lg n
+| red-black BST                   | 2 lg n                 | lg n
