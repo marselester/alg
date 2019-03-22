@@ -52,3 +52,5 @@ Worst and average-case costs for symbol-table implementations.
 | ordered array (binary search)   | lg n, n                | lg n, n/2
 | binary search tree              | n                      | 1.39 lg n
 | red-black BST                   | 2 lg n                 | lg n
+| separate chaining               | n                      | n/(2*m), n/m
+| linear probing                  | n                      | < 1.5, < 2.5
