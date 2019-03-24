@@ -1,14 +1,13 @@
-// Package cache implements a cache using move-to-front strategy,
-// where items that have been recently accessed are more likely to be reaccessed.
+// Package cache implements caching using move-to-front strategy.
 package cache
 
-// MoveToFront represents a cache that stores keys using move-to-front strategy.
+// MoveToFront represents a cache that stores keys using move-to-front strategy,
+// where items that have been recently accessed are more likely to be reaccessed.
 // A previously unseen key is inserted at the front of the list.
 // A duplicate key is deleted from the list and reinsert at the beginning.
 type MoveToFront struct {
 	first *node
 }
-
 type node struct {
 	key   string
 	value []byte
