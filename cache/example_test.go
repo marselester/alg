@@ -6,7 +6,7 @@ import (
 	"github.com/marselester/alg/cache"
 )
 
-func ExampleLRU() {
+func Example() {
 	c := cache.LRU{}
 	c.Set("a", []byte("A"))
 	c.Set("b", []byte("B"))

@@ -40,9 +40,10 @@ func Hash(key string, size int) int {
 // Array resizing can be used to make sure the lists are short no matter how many keys are stored.
 type SeparateChaining struct {
 	a []symboltable.SequentialSearch
+	config
 	// size is a length of the hash table's underlying array.
-	size int
-	hash Hasher
+	// size int
+	// hash Hasher
 }
 
 // Put uses a hash function to choose a list for the key.
@@ -73,6 +74,56 @@ type LinearProbing struct {
 	values []int
 	// n is the number of key-value pairs in the table.
 	n int
-	// m is the size of linear-probing table.
-	m int
+	config
+}
+
+// Put stores a key in the hash table:
+// if a new key hashes to an empty entry (blank string), it's stored there;
+// if not, it scans sequentially to find an empty position.
+func (ht *LinearProbing) Put(key string, value int) {
+	// Double the size of linear-probing table.
+	if ht.n >= ht.size/2 {
+		ht.resize(ht.size * 2)
+	}
+
+	i := ht.hash(key, ht.size)
+	for ; ht.keys[i] != ""; i = (i + 1) % ht.size {
+		if key == ht.keys[i] {
+			ht.values[i] = value
+			return
+		}
+	}
+
+	ht.keys[i] = key
+	ht.values[i] = value
+	ht.n++
+}
+
+// resize puts old keys from the old table into the new one
+// by rehashing all the keys.
+func (ht *LinearProbing) resize(size int) {
+	newht := NewLinearProbing(
+		WithTableSize(size),
+		WithHash(ht.hash),
+	)
+	for i := 0; i < ht.size; i++ {
+		if ht.keys[i] != "" {
+			newht.Put(ht.keys[i], ht.values[i])
+		}
+	}
+	ht.keys = newht.keys
+	ht.values = newht.values
+	ht.size = newht.size
+}
+
+// Get searches for a key sequentially starting at its hash index
+// until finding an empty string (search miss) or the key (search hit).
+func (ht *LinearProbing) Get(key string) int {
+	i := ht.hash(key, ht.size)
+	for ; ht.keys[i] != ""; i = (i + 1) % ht.size {
+		if key == ht.keys[i] {
+			return ht.values[i]
+		}
+	}
+	return -1
 }

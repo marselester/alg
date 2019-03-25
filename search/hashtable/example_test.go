@@ -8,7 +8,7 @@ import (
 
 func Example() {
 	ht := hashtable.NewSeparateChaining(
-		hashtable.WithChainingSize(997),
+		hashtable.WithTableSize(997),
 		hashtable.WithHash(hashtable.Hash),
 	)
 	ht.Put("age", 100)

@@ -6,7 +6,7 @@ import (
 	algebra "github.com/marselester/alg/ebra"
 )
 
-func ExampleSparseVector() {
+func Example() {
 	a := [][]float64{
 		{0, .9, 0, 0, 0},
 		{0, 0, .36, .36, .18},
