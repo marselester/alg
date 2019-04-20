@@ -1,3 +1,4 @@
+// Package algebra provides sparse vector implementation.
 package algebra
 
 // SparseVector is used in matrix-vector multiplication when huge number of matrix entries are zero.
