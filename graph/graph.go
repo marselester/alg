@@ -1,7 +1,9 @@
 package graph
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"strings"
 )
 
@@ -35,6 +37,18 @@ func (g *AdjacencyList) Add(v, w int) {
 	g.a[w] = &node{v: v, next: g.a[w]}
 }
 
+// Adjacent returns vertices adjacent to the vertex v.
+func (g *AdjacencyList) Adjacent(v int) []int {
+	var edges []int
+	if v < 0 || v >= len(g.a) {
+		return edges
+	}
+	for n := g.a[v]; n != nil; n = n.next {
+		edges = append(edges, n.v)
+	}
+	return edges
+}
+
 // String returns a string representation of the graph's adjacency lists.
 func (g *AdjacencyList) String() string {
 	var b strings.Builder
@@ -46,4 +60,79 @@ func (g *AdjacencyList) String() string {
 		fmt.Fprint(&b, "\n")
 	}
 	return b.String()
+}
+
+// SymbolGraph is a graph whose vertices are strings (city, movie), not integer indices.
+type SymbolGraph struct {
+	// names maps a vertex name (city, movie) to its index in the graph.
+	names map[string]int
+	// keys is an inverted index of vertex names.
+	keys []string
+	g    *AdjacencyList
+}
+
+// NewSymbolGraph constructs a symbol graph. It uses two passes through the data to build
+// underlying indices.
+func NewSymbolGraph(in io.ReadSeeker, sep string) (*SymbolGraph, error) {
+	sg := SymbolGraph{
+		names: make(map[string]int),
+	}
+
+	scanner := bufio.NewScanner(in)
+	for scanner.Scan() {
+		// Edges connect the first vertex name to other vertices, e.g., movie and performers.
+		edges := strings.Split(scanner.Text(), sep)
+		for _, name := range edges {
+			if _, ok := sg.names[name]; !ok {
+				sg.names[name] = len(sg.names)
+			}
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	sg.keys = make([]string, len(sg.names))
+	for name, index := range sg.names {
+		sg.keys[index] = name
+	}
+
+	sg.g = NewAdjacencyList(len(sg.names))
+	if _, err := in.Seek(0, io.SeekStart); err != nil {
+		return nil, err
+	}
+	scanner = bufio.NewScanner(in)
+	for scanner.Scan() {
+		edges := strings.Split(scanner.Text(), sep)
+		src, _ := sg.Index(edges[0])
+		for i := 1; i < len(edges); i++ {
+			dst, _ := sg.Index(edges[i])
+			sg.g.Add(src, dst)
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	return &sg, nil
+}
+
+// Adjacent returns vertices adjacent to the vertex v.
+func (sg *SymbolGraph) Adjacent(v int) []int {
+	return sg.g.Adjacent(v)
+}
+
+// Index returns a vertex index associated with a key (vertex name).
+func (sg *SymbolGraph) Index(key string) (int, bool) {
+	v, ok := sg.names[key]
+	return v, ok
+}
+
+// Name returns a vertex name associated with index v.
+// Empty string indicates that vertex doesn't exist.
+func (sg *SymbolGraph) Name(v int) string {
+	if v < 0 || v >= len(sg.keys) {
+		return ""
+	}
+	return sg.keys[v]
 }
