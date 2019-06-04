@@ -136,3 +136,8 @@ func (sg *SymbolGraph) Name(v int) string {
 	}
 	return sg.keys[v]
 }
+
+// Graph returns an underlying graph.
+func (sg *SymbolGraph) Graph() *AdjacencyList {
+	return sg.g
+}

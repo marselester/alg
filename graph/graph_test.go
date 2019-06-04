@@ -30,9 +30,7 @@ LAS PHX
 `
 
 func ExampleSymbolGraph() {
-	r := bytes.NewReader([]byte(routes))
-
-	sg, err := graph.NewSymbolGraph(r, " ")
+	sg, err := graph.NewSymbolGraph(bytes.NewReader([]byte(routes)), " ")
 	if err != nil {
 		log.Fatalf("flight: graph creation failed: %v", err)
 	}

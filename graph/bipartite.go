@@ -8,7 +8,7 @@ in such a way that no edge connects vertices of the same color?
 
 For example, IMDB can be defined as a graph with movies and performers as vertices and
 each line defining the adjacency list of edges connecting each movie to its performers.
-The graph is bipartite - there are no edges connecting performers to performers or movies to movies.
+The graph is bipartite — there are no edges connecting performers to performers or movies to movies.
 */
 func IsBipartite(g *AdjacencyList) bool {
 	b := bipartite{
