@@ -5,6 +5,7 @@ IsBipartite returns true if a graph whose vertices we can divide into two sets
 such that all edges connect a vertex in one set (colored red) with a vertex in the other set
 (colored black). In other words, can the vertices of a given graph be assigned one of two colors
 in such a way that no edge connects vertices of the same color?
+Graph is two-colorable if and only if it contains no odd-length cycle.
 
 For example, IMDB can be defined as a graph with movies and performers as vertices and
 each line defining the adjacency list of edges connecting each movie to its performers.

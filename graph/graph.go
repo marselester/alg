@@ -72,7 +72,8 @@ type SymbolGraph struct {
 }
 
 // NewSymbolGraph constructs a symbol graph. It uses two passes through the data to build
-// underlying indices.
+// underlying indices. Note, one pass would be sufficient if a graph used a hash table
+// implementation (extra log V factor, V is number of vertices) instead of a linked list.
 func NewSymbolGraph(in io.ReadSeeker, sep string) (*SymbolGraph, error) {
 	sg := SymbolGraph{
 		names: make(map[string]int),
