@@ -1,5 +1,8 @@
 // Package digraph (directed graph) provides data structures to manipulate a set of vertices and
 // a collection of directed edges. Each directed edge connects an ordered pair of vertices.
+//
+// The code is identical to graph.DepthFirstPath (find a directed path from source to a target vertex v)
+// and graph.BreadthFirstPath (find a shortest directed path from source to a target vertex v).
 package digraph
 
 import (
@@ -41,4 +44,9 @@ func (g *AdjacencyList) String() string {
 		fmt.Fprint(&b, "\n")
 	}
 	return b.String()
+}
+
+// VertexCount returns number of vertices in the graph.
+func (g *AdjacencyList) VertexCount() int {
+	return len(g.a)
 }

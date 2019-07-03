@@ -4,7 +4,7 @@ package digraph
 DepthFirstSearch is a method to find vertices that are reachable from a given vertex
 to support queries "is there a directed path from source to a given target vertex v?".
 
-Mutliple-source reachability: given a digraph and a set of source vertices,
+Multiple-source reachability: given a digraph and a set of source vertices,
 support queries of the form "is there a directed path from some vertex in the set
 to a given target vertex v". For example, it's applicable to mark-and-sweep garbage collection:
 

@@ -25,12 +25,23 @@ type cycle struct {
 	exists bool
 }
 
-func (c *cycle) dfs(source, u int) {
+/*
+dfs starts visiting vertices from source vertex and its parent vertex (ex source).
+For example, if path is 0->5->4->3->5(check), then dfs call stack is:
+
+	0,-1 -> 5,0 -> 4,5 -> source=3,parent=4 (v=5 is already marked)
+
+There is a cycle, because vertex 5 is already visited,
+and adjacent visited vector is not parent of v.
+*/
+func (c *cycle) dfs(source, parent int) {
 	c.marked[source] = true
 	for n := c.g.a[source]; n != nil; n = n.next {
 		if !c.marked[n.v] {
 			c.dfs(n.v, source)
-		} else if n.v != u {
+		} else
+		// Cycle: adjacent vertex v is visited and v is not parent of source.
+		if n.v != parent {
 			c.exists = true
 		}
 	}
