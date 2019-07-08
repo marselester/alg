@@ -50,3 +50,15 @@ func (g *AdjacencyList) String() string {
 func (g *AdjacencyList) VertexCount() int {
 	return len(g.a)
 }
+
+// Reverse returns a new digraph with all edges reversed.
+// It allows clients to find the edges that point TO each vertex, instead of edges that point FROM each vertex.
+func Reverse(g *AdjacencyList) *AdjacencyList {
+	rev := NewAdjacencyList(g.VertexCount())
+	for v := range g.a {
+		for n := g.a[v]; n != nil; n = n.next {
+			rev.Add(n.v, v)
+		}
+	}
+	return rev
+}

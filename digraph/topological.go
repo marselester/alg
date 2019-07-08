@@ -19,7 +19,10 @@ func TopologicalSort(g *AdjacencyList) []int {
 	if HasCycle(g) {
 		return nil
 	}
+	return reversePostorder(g)
+}
 
+func reversePostorder(g *AdjacencyList) []int {
 	t := topological{
 		g:           g,
 		marked:      make([]bool, g.VertexCount()),
