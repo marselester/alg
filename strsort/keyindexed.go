@@ -52,3 +52,36 @@ func KeyIndexedCounting(slice interface{}, key func(i int) int, radix int) {
 		rv.Index(i).Set(aux.Index(i))
 	}
 }
+
+type student struct {
+	name  string
+	group int
+}
+
+// keyIndexedCounting is an implementation of a key-indexed counting sorting method without reflection.
+func keyIndexedCounting(students []student, radix int) {
+	// Count the frequency of occurence of each key
+	count := make([]int, radix+1)
+	for _, s := range students {
+		count[s.group+1]++
+	}
+
+	// Transform counts to indices.
+	for r := 0; r < radix; r++ {
+		count[r+1] += count[r]
+	}
+
+	// Distribute the records.
+	aux := make([]student, len(students))
+	var pos int
+	for _, s := range students {
+		pos = count[s.group]
+		aux[pos] = s
+		count[s.group]++
+	}
+
+	// Copy back.
+	for i := 0; i < len(students); i++ {
+		students[i] = aux[i]
+	}
+}
