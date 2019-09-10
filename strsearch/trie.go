@@ -52,10 +52,10 @@ func NewTrie(radix int) *Trie {
 }
 
 /*
-Get searches the value assosiated with a given key.
+Get searches the value associated with a given key.
 Each node in the trie has a link corresponding to each possible string character.
-We start at the root, then follow the link assosiated with the first character in the key;
-from that node we follow the link assosiated with the second character in the key and so forth,
+We start at the root, then follow the link associated with the first character in the key;
+from that node we follow the link associated with the second character in the key and so forth,
 until reaching the last character of the key or a null link. At this point, one of three following
 conditions holds:
 

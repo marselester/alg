@@ -73,3 +73,21 @@ Worst and average-case costs for symbol-table implementations.
 | red-black BST                   | 2 lg n                 | lg n
 | separate chaining               | n                      | n/(2*m), n/m
 | linear probing                  | n                      | < 1.5, < 2.5
+
+### String symbol-table implementation
+
+| data structure (algorithm) | sweet spot
+| ---                        | ---
+| binary search tree (BST)   | randomly ordered keys
+| red-black BST              | guaranteed performance
+| linear probing             | built-in types, cached hash values
+| R-way trie                 | short keys, small alphabets
+| ternary search trie (TST)  | nonrandom keys
+
+If space is available, R-way tries provide the fastest search (a constant number of character compares).
+
+For large alphabets, where space may not be available for R-way tries,
+TSTs (ternary search tries) are prefereable, since they use a logarithmic number of character compares,
+while BSTs use a logarithmic number of key compares.
+
+Hashing can be competitive, but cannot support ordered symbol table operations.
