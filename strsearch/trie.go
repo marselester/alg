@@ -69,14 +69,14 @@ func (t *Trie) Get(key string) string {
 		return ""
 	}
 
-	if n := get(t.root, key, 0); n != nil {
+	if n := t.get(t.root, key, 0); n != nil {
 		return n.value
 	}
 	return ""
 }
 
 // get returns a node associated with key in the subtrie rooted at n.
-func get(n *node, key string, i int) *node {
+func (t *Trie) get(n *node, key string, i int) *node {
 	if n == nil {
 		return nil
 	}
@@ -86,7 +86,7 @@ func get(n *node, key string, i int) *node {
 	}
 
 	c := key[i]
-	return get(n.next[c], key, i+1)
+	return t.get(n.next[c], key, i+1)
 }
 
 /*

@@ -2,7 +2,7 @@ package strsearch
 
 import "testing"
 
-func TestTrieGet(t *testing.T) {
+func TestTrie_Get(t *testing.T) {
 	st := NewTrie(ASCIIRadix)
 	st.root = &node{
 		value: "root",
@@ -36,7 +36,7 @@ func TestTrieGet(t *testing.T) {
 	}
 }
 
-func TestTriePut(t *testing.T) {
+func TestTrie_Put(t *testing.T) {
 	st := NewTrie(ASCIIRadix)
 
 	st.Put("ab", "fizz")
