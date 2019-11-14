@@ -5,6 +5,14 @@
 
 Go implementation of some examples from [Algorithms book](https://algs4.cs.princeton.edu).
 
+Table of contents:
+
+- [Sorting](#sorting)
+  - [String sorts](#string-sorts)
+- [Searching](#searching)
+  - [String symbol-table](#string-symbol-table)
+  - [Substring search](#substring-search)
+
 ## Sorting
 
 | algorithm       | running time | notes
@@ -74,7 +82,7 @@ Worst and average-case costs for symbol-table implementations.
 | separate chaining               | n                      | n/(2*m), n/m
 | linear probing                  | n                      | < 1.5, < 2.5
 
-### String symbol-table implementation
+### String symbol-table
 
 | data structure (algorithm) | sweet spot
 | ---                        | ---
@@ -91,3 +99,19 @@ TSTs (ternary search tries) are prefereable, since they use a logarithmic number
 while BSTs use a logarithmic number of key compares.
 
 Hashing can be competitive, but cannot support ordered symbol table operations.
+
+### Substring search
+
+Note, `m` is a pattern length, `n` is a text length.
+
+Brute-force search is easy to implement and works well in typical cases,
+but might require time proportional to m*n.
+
+Knuth-Morris-Pratt is guaranteed linear-time with no backup in the input,
+but uses extra space.
+
+Boyer-Moore is sublinear (by a factor of m) in typical situations,
+but uses extra space.
+
+Rabin-Karp is linear, but has a relatively long inner loop
+(several arithmetic operations, as opposed to character compares in the other methods).
