@@ -12,6 +12,7 @@ Table of contents:
 - [Searching](#searching)
   - [String symbol-table](#string-symbol-table)
   - [Substring search](#substring-search)
+- [Graphs](#graphs)
 
 ## Sorting
 
@@ -115,3 +116,55 @@ but uses extra space.
 
 Rabin-Karp is linear, but has a relatively long inner loop
 (several arithmetic operations, as opposed to character compares in the other methods).
+
+## Graphs
+
+Undirected graph-processing problems and solutions:
+
+- **single-source connectivity**
+  ([depth-first search](https://godoc.org/github.com/marselester/alg/graph#DepthFirstSearch))
+  — find vertices connected to a given vertex
+- **single-source paths**
+  ([depth-first paths](https://godoc.org/github.com/marselester/alg/graph#DepthFirstPath))
+  — find paths to all the vertices that are connected to a given vertex
+- **single-source shortest paths**
+  ([breadth-first paths](https://godoc.org/github.com/marselester/alg/graph#BreadthFirstPath))
+  — find paths with the fewest number of edges from a given vertex
+- **connectivity**
+  ([connected components](https://godoc.org/github.com/marselester/alg/graph#ConnectedComponent))
+  — find the connected components of a graph to tell whether v and w vertices are connected.
+- **cycle detection**
+  ([has cycle](https://godoc.org/github.com/marselester/alg/graph#HasCycle))
+  — path with at least one edge whose first and last vertices are the same
+- **two-colorability**
+  ([is bipartite](https://godoc.org/github.com/marselester/alg/graph#IsBipartite))
+  — can the vertices be assigned one of two colors in such a way
+  that no edge connects vertices of the same color?
+  For example, IMDB can be defined as a graph with movies and performers.
+  The graph is bipartite — there are no edges connecting performers to performers or movies to movies.
+
+Digraph-processing problems and solutions:
+
+- **single and multiple-source reachability**
+  ([depth-first search](https://godoc.org/github.com/marselester/alg/digraph#DepthFirstSearch))
+  — find vertices that are reachable from a given vertex
+- **single-source directed paths** (code is identical to undirected depth-first paths)
+  — find a directed path from source to a target vertex
+- **single-source shortest directed paths** (code is identical to undirected breadth-first paths)
+  — find a shortest directed path from source to a target vertex
+- **directed cycle detection**
+  ([has cycle](https://godoc.org/github.com/marselester/alg/digraph#HasCycle))
+  — in a scheduling problem certain jobs must be performed before certain others (precedence constraint)
+  which is a topological sort problem. No solution exists if there is a directed cycle.
+- **precedence-constrained scheduling**
+  ([topological sort](https://godoc.org/github.com/marselester/alg/digraph#TopologicalSort))
+- **strong connectivity**
+  ([Kosaraju-Sharir algorithm](https://godoc.org/github.com/marselester/alg/digraph#StrongConnectedComponent))
+  — two vertices v and w are strongly connected if there is a directed path from v to w, and from w to v.
+  Strong connectivity helps to understand the structure of a digraph,
+  highlighting interrelated sets of vertices (strong components).
+  For example, you can model a food chain (predator-prey) to study ecological system.
+  Another example is web content where a page represents a vertex, and edge represents a hyperlink.
+- **all-pairs reachability**
+  ([transitive closure](https://godoc.org/github.com/marselester/alg/digraph#TransitiveClosure))
+  — is there a directed path from vertex v to w? Note, the pair of vertices v and w are not strongly connected.
