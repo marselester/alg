@@ -60,6 +60,19 @@ func (g *AdjacencyList) Add(e *Edge) {
 	g.edgeCount++
 }
 
+// Edges returns all edges in this graph.
+func (g *AdjacencyList) Edges() []*Edge {
+	var edges []*Edge
+	for v := 0; v < g.VertexCount(); v++ {
+		for _, e := range g.Adjacent(v) {
+			if e.Other(v) > v {
+				edges = append(edges, e)
+			}
+		}
+	}
+	return edges
+}
+
 // Adjacent returns edges incident to vertex v.
 func (g *AdjacencyList) Adjacent(v int) []*Edge {
 	if v < 0 || v >= g.VertexCount() {
