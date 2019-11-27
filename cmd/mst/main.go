@@ -17,6 +17,7 @@ import (
 
 func main() {
 	vertices := flag.Int("v", 0, "number of vertices in the graph")
+	alg := flag.String("alg", "prim", "algorithm to compute MST (prim, kruskal)")
 	flag.Parse()
 
 	g := mst.NewAdjacencyList(*vertices)
@@ -61,9 +62,19 @@ func main() {
 		log.Fatalf("mst: failed to read a graph: %v", err)
 	}
 
-	tree := mst.NewLazyPrim(g)
+	var tree interface {
+		Edges() []*mst.Edge
+		Weight() float32
+	}
+	switch *alg {
+	case "kruskal":
+		tree = mst.NewKruskal(g)
+	default:
+		tree = mst.NewLazyPrim(g)
+	}
+
 	for _, e := range tree.Edges() {
 		fmt.Println(e)
 	}
-	fmt.Println(tree.Weight())
+	fmt.Printf("%.5f\n", tree.Weight())
 }
