@@ -12,7 +12,10 @@ Table of contents:
 - [Searching](#searching)
   - [String symbol-table](#string-symbol-table)
   - [Substring search](#substring-search)
-- [Graphs](#graphs)
+- [Dynamic connectivity](#dynamic-connectivity)
+- [Graph](#graph)
+  - [Minimum spanning tree](#minimum-spanning-tree)
+- [Digraph](#digraph)
 
 ## Sorting
 
@@ -117,7 +120,18 @@ but uses extra space.
 Rabin-Karp is linear, but has a relatively long inner loop
 (several arithmetic operations, as opposed to character compares in the other methods).
 
-## Graphs
+## Dynamic connectivity
+
+The input is a sequence of int pairs (p, q), where each integer represents an object (computer in network)
+and task is to learn if p is connected to q (connection in network).
+
+| algorithm | union | find
+| ---       | ---   | ---
+| [quick-find](https://godoc.org/github.com/marselester/alg/unionfind/qfind) | n | 1
+| [quick-union](https://godoc.org/github.com/marselester/alg/unionfind/qunion) | tree height | tree height
+| [weighted quick-union](https://godoc.org/github.com/marselester/alg/unionfind/wqunion) | log n | log n
+
+## Graph
 
 Undirected graph-processing problems and solutions:
 
@@ -142,6 +156,25 @@ Undirected graph-processing problems and solutions:
   that no edge connects vertices of the same color?
   For example, IMDB can be defined as a graph with movies and performers.
   The graph is bipartite — there are no edges connecting performers to performers or movies to movies.
+
+### Minimum spanning tree
+
+Computing MST (minimum spanning tree) for undirected edge-weighted graphs.
+Weight represents a cost (or time) that it takes to propagate through the edge
+(airline map where weights are distances or fares).
+Minimizing the cost is naturally of interest in such situations.
+
+Worst-case order of growth for V vertices and E edges.
+
+| algorithm | space | time
+| ---       | ---   | ---
+| [lazy Prim](https://godoc.org/github.com/marselester/alg/graph/mst#LazyPrim) | E | E log E
+| eager Prim | V | E log V
+| [Kruskal](https://godoc.org/github.com/marselester/alg/graph/mst#Kruskal) | E | E log E
+| Fredman-Tarjan | V | E + V log V
+| Chazelle | V | nearly E
+
+## Digraph
 
 Digraph-processing problems and solutions:
 
