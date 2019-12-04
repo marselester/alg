@@ -17,6 +17,7 @@ Table of contents:
 - [Graph](#graph)
   - [Minimum spanning tree](#minimum-spanning-tree)
 - [Digraph](#digraph)
+  - [Shortest paths](#shortest-paths)
 
 ## Sorting
 
@@ -221,3 +222,20 @@ Digraph-processing problems and solutions:
 - **all-pairs reachability**
   ([transitive closure](https://godoc.org/github.com/marselester/alg/digraph#TransitiveClosure))
   — is there a directed path from vertex v to w? Note, the pair of vertices v and w are not strongly connected.
+
+### Shortest paths
+
+Find a lowest-cost way to get from one vertex to another.
+The classic Dijkstra's algorithm for the problems when weights are nonnegative:
+
+- **single-source shortest paths**
+  ([Dijkstra's algorithm](https://godoc.org/github.com/marselester/alg/digraph/spt#Dijkstra))
+  — is there a directed path from s to a given target vertex t? If so, find a shortest path (total weight is minimal).
+- **source-sink shortest paths** — find the shortest path from s to t.
+  Use Dijkstra's algorithm, but terminate the search as soon as t comes off the priority queue.
+- **all-pairs shortest paths**
+
+Topological sort is a faster algorithm for acyclic edge-weighted digraphs that works even when edge weights can be negative.
+
+The classic Bellman-Ford algorithm for use in the general case, when cycles may be present, edge weights may be negative,
+and we need algorithms for finding negative-weight cycles and shortest paths in edge-weighted digraphs with no such cycles.
