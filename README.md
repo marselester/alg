@@ -8,6 +8,7 @@ Go implementation of some examples from [Algorithms book](https://algs4.cs.princ
 Table of contents:
 
 - [Sorting](#sorting)
+  - [Priority queue](#priority-queue)
   - [String sorts](#string-sorts)
 - [Searching](#searching)
   - [String symbol-table](#string-symbol-table)
@@ -50,6 +51,25 @@ array entries are rarely compared with nearby array entries, so the number of ca
 higher than for quicksort, mergesort, shellsort.
 
 Mergesort is a general-purpose stable sort.
+
+### Priority queue
+
+Often, we accumulate items, then process the one with the largest key,
+and collect more items and process the current largest key.
+For example, process scheduler picks a process with the highest priority.
+
+| data structure | insert | remove maximum | change priority
+| ---            | ---    | ---            | ---
+| binary heap    | log n  | log n          | log n
+
+Examples:
+
+- [MaxHeap](https://godoc.org/github.com/marselester/alg/sort/pqueue#MaxHeap)
+  returns any largest item
+- [MinHeap](https://godoc.org/github.com/marselester/alg/sort/pqueue#MinHeap)
+  returns any smallest item
+- [IndexMinHeap](https://godoc.org/github.com/marselester/alg/sort/pqueue#IndexMinHeap)
+  allows clients to refer to items on priority queue
 
 ### String sorts
 
