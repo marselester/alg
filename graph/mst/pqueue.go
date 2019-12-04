@@ -1,14 +1,14 @@
 package mst
 
-// MinHeap is a binary heap that can efficiently support priority-queue
+// minHeap is a binary heap that can efficiently support priority-queue
 // operations: insert (log n), remove minimum (log n).
-type MinHeap struct {
+type minHeap struct {
 	pq []*Edge
 }
 
-// NewMinHeap creates a binary heap of size n to prioritize min items.
-func NewMinHeap(n int) *MinHeap {
-	h := MinHeap{
+// newMinHeap creates a binary heap of size n to prioritize min items.
+func newMinHeap(n int) *minHeap {
+	h := minHeap{
 		pq: make([]*Edge, 0, n+1),
 	}
 	h.pq = append(h.pq, nil)
@@ -17,7 +17,7 @@ func NewMinHeap(n int) *MinHeap {
 
 // Insert adds the new item at the end of the array, and then swims up through the heap
 // with that item to restore the heap condition.
-func (h *MinHeap) Insert(item *Edge) {
+func (h *minHeap) Insert(item *Edge) {
 	h.pq = append(h.pq, item)
 	h.swim(len(h.pq) - 1)
 }
@@ -25,7 +25,7 @@ func (h *MinHeap) Insert(item *Edge) {
 // Min takes the lightest item off the top, puts the item from the end of the heap at the top,
 // decrements the size of the heap, and then sinks down through the heap with that item
 // to restore the heap condition.
-func (h *MinHeap) Min() *Edge {
+func (h *minHeap) Min() *Edge {
 	if len(h.pq) <= 1 {
 		return nil
 	}
@@ -37,11 +37,11 @@ func (h *MinHeap) Min() *Edge {
 }
 
 // Size returns size of the heap.
-func (h *MinHeap) Size() int {
+func (h *minHeap) Size() int {
 	return len(h.pq) - 1
 }
 
-func (h *MinHeap) swim(i int) {
+func (h *minHeap) swim(i int) {
 	var parent int
 	for i > 1 {
 		parent = i / 2
@@ -54,7 +54,7 @@ func (h *MinHeap) swim(i int) {
 	}
 }
 
-func (h *MinHeap) sink(i int) {
+func (h *minHeap) sink(i int) {
 	var child int
 	for {
 		// Find the smallest child.
@@ -75,10 +75,10 @@ func (h *MinHeap) sink(i int) {
 	}
 }
 
-// IndexMinHeap is a binary heap that allows clients to refer to items on priority queue.
+// indexMinHeap is a binary heap that allows clients to refer to items on priority queue.
 // The number of compares required is proportional to at most log n for insert, change priority,
 // and remove the minimum.
-type IndexMinHeap struct {
+type indexMinHeap struct {
 	// n is number of elements on priority queue.
 	n int
 	// pq is a binary heap using 1-based indexing.
@@ -89,9 +89,9 @@ type IndexMinHeap struct {
 	items []*Edge
 }
 
-// NewIndexMinHeap creates a binary heap of size n to prioritize min items.
-func NewIndexMinHeap(n int) *IndexMinHeap {
-	h := IndexMinHeap{
+// newIndexMinHeap creates a binary heap of size n to prioritize min items.
+func newIndexMinHeap(n int) *indexMinHeap {
+	h := indexMinHeap{
 		pq:    make([]int, n+1),
 		qp:    make([]int, n+1),
 		items: make([]*Edge, n+1),
@@ -104,7 +104,7 @@ func NewIndexMinHeap(n int) *IndexMinHeap {
 
 // Insert adds the new item and associates it with index i.
 // Think of it as pq[i] = item.
-func (h *IndexMinHeap) Insert(i int, item *Edge) {
+func (h *indexMinHeap) Insert(i int, item *Edge) {
 	h.n++
 	h.qp[i] = h.n
 	h.pq[h.n] = i
@@ -114,19 +114,19 @@ func (h *IndexMinHeap) Insert(i int, item *Edge) {
 
 // Update changes the item associated with index i.
 // Think of it as pq[i] = item.
-func (h *IndexMinHeap) Update(i int, item *Edge) {
+func (h *indexMinHeap) Update(i int, item *Edge) {
 	h.items[i] = item
 	h.swim(h.qp[i])
 	h.sink(h.qp[i])
 }
 
 // Contains returns true if index i is associated with some item.
-func (h *IndexMinHeap) Contains(i int) bool {
+func (h *indexMinHeap) Contains(i int) bool {
 	return h.qp[i] != -1
 }
 
 // Min takes the smallest item off the top. Note, the first value is an index.
-func (h *IndexMinHeap) Min() (int, *Edge) {
+func (h *indexMinHeap) Min() (int, *Edge) {
 	if h.Size() == 0 {
 		return -1, nil
 	}
@@ -145,15 +145,15 @@ func (h *IndexMinHeap) Min() (int, *Edge) {
 }
 
 // Size returns size of the heap.
-func (h *IndexMinHeap) Size() int {
+func (h *indexMinHeap) Size() int {
 	return h.n
 }
 
-func (h *IndexMinHeap) greater(i, j int) bool {
+func (h *indexMinHeap) greater(i, j int) bool {
 	return h.items[h.pq[i]].Weight > h.items[h.pq[j]].Weight
 }
 
-func (h *IndexMinHeap) exchange(i, j int) {
+func (h *indexMinHeap) exchange(i, j int) {
 	swap := h.pq[i]
 	h.pq[i] = h.pq[j]
 	h.pq[j] = swap
@@ -161,14 +161,14 @@ func (h *IndexMinHeap) exchange(i, j int) {
 	h.qp[h.pq[j]] = j
 }
 
-func (h *IndexMinHeap) swim(k int) {
+func (h *indexMinHeap) swim(k int) {
 	for k > 1 && h.greater(k/2, k) {
 		h.exchange(k, k/2)
 		k = k / 2
 	}
 }
 
-func (h *IndexMinHeap) sink(k int) {
+func (h *indexMinHeap) sink(k int) {
 	for 2*k <= h.n {
 		j := 2 * k
 		if j < h.n && h.greater(j, j+1) {

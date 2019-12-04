@@ -10,7 +10,7 @@ func NewLazyPrim(g *AdjacencyList) *LazyPrim {
 	lp := LazyPrim{
 		g:      g,
 		marked: make([]bool, g.VertexCount()),
-		pq:     NewMinHeap(g.EdgeCount()),
+		pq:     newMinHeap(g.EdgeCount()),
 	}
 
 	lp.visit(0)
@@ -51,7 +51,7 @@ type LazyPrim struct {
 	// where marked[v] is true if v is on the tree.
 	marked []bool
 	// pq is min priority queue that compares crossing edges by weight to find the crossing edge of minimal weight.
-	pq *MinHeap
+	pq *minHeap
 	// edges holds MST edges.
 	edges []*Edge
 }

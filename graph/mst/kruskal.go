@@ -13,7 +13,7 @@ import "github.com/marselester/alg/unionfind/wqunion"
 func NewKruskal(g *AdjacencyList) *Kruskal {
 	k := Kruskal{
 		g:  g,
-		pq: NewMinHeap(g.EdgeCount()),
+		pq: newMinHeap(g.EdgeCount()),
 		uf: wqunion.New(g.VertexCount()),
 	}
 
@@ -46,7 +46,7 @@ func NewKruskal(g *AdjacencyList) *Kruskal {
 type Kruskal struct {
 	g *AdjacencyList
 	// pq is min priority queue to consider the edges in order by weight.
-	pq *MinHeap
+	pq *minHeap
 	// uf is a union-find to identify edges that cause cycles.
 	uf *wqunion.Network
 	// edges holds MST edges.
