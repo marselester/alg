@@ -234,6 +234,8 @@ The classic Dijkstra's algorithm for the problems when weights are nonnegative:
 - **source-sink shortest paths** — find the shortest path from s to t.
   Use Dijkstra's algorithm, but terminate the search as soon as t comes off the priority queue.
 - **all-pairs shortest paths**
+  ([Dijkstra all-pairs](https://godoc.org/github.com/marselester/alg/digraph/spt#DijkstraAllPairs))
+  — find a shortest path from s to t (all vertex pairs).
 
 Topological sort is a faster algorithm for acyclic edge-weighted digraphs that works even when edge weights can be negative.
 

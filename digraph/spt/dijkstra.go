@@ -86,3 +86,33 @@ func (d *Dijkstra) PathTo(v int) []*Edge {
 	}
 	return pathTo(v, d.edgeTo)
 }
+
+// NewDijkstraAllPairs finds shortest paths for all vertex pairs
+// using time proportional to E * V * log V and extra space proportional to V^2.
+// It builds an array of Dijkstra objects, one for each vertex as the source.
+// To find a shortest path, it uses the source to access the corresponding single-source
+// shortest-paths object and then passes the target as an argument to the query.
+func NewDijkstraAllPairs(g *AdjacencyList) *DijkstraAllPairs {
+	all := DijkstraAllPairs{
+		sources: make([]*Dijkstra, g.VertexCount()),
+	}
+	for v := 0; v < g.VertexCount(); v++ {
+		all.sources[v] = NewDijkstra(g, v)
+	}
+	return &all
+}
+
+// DijkstraAllPairs solves all-pairs shortest paths problem.
+type DijkstraAllPairs struct {
+	sources []*Dijkstra
+}
+
+// PathTo returns a path from source to target vertex or nil if it doesn't exist.
+func (all *DijkstraAllPairs) PathTo(source, target int) []*Edge {
+	return all.sources[source].PathTo(target)
+}
+
+// DistTo returns distance from source to target vertex, or infinity if no path exists.
+func (all *DijkstraAllPairs) DistTo(source, target int) float64 {
+	return all.sources[source].DistTo(target)
+}

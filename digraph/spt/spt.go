@@ -1,7 +1,5 @@
 package spt
 
-import "math"
-
 // relax performs edge-relaxation operation (relaxing the tension on the rubber band along a shorter path)
 // and reports if the edge was eligible.
 //
