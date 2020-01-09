@@ -22,9 +22,10 @@ func NewDijkstra(g *AdjacencyList, source int) *Dijkstra {
 	}
 
 	// Start with distTo[source] = 0 and all other entries equal to positive infinity.
-	for i := 1; i < len(d.distTo); i++ {
+	for i := 0; i < len(d.distTo); i++ {
 		d.distTo[i] = math.Inf(+1)
 	}
+	d.distTo[source] = 0
 
 	d.pq.Insert(source, 0)
 	for d.pq.Size() != 0 {

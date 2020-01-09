@@ -237,7 +237,8 @@ The classic Dijkstra's algorithm for the problems when weights are nonnegative:
   ([Dijkstra all-pairs](https://godoc.org/github.com/marselester/alg/digraph/spt#DijkstraAllPairs))
   — find a shortest path from s to t (all vertex pairs).
 
-Topological sort is a faster algorithm for acyclic edge-weighted digraphs that works even when edge weights can be negative.
+[Topological sort](https://godoc.org/github.com/marselester/alg/digraph/spt#Acyclic)
+is a faster algorithm for acyclic edge-weighted digraphs that works even when edge weights can be negative.
 
 The classic Bellman-Ford algorithm for use in the general case, when cycles may be present, edge weights may be negative,
 and we need algorithms for finding negative-weight cycles and shortest paths in edge-weighted digraphs with no such cycles.
