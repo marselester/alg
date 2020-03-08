@@ -1,24 +1,28 @@
 package spt
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/marselester/alg/digraph/weighted"
+)
 
 func ExampleNewDijkstra() {
-	g := NewAdjacencyList(8)
-	g.Add(&Edge{4, 5, 0.35})
-	g.Add(&Edge{5, 4, 0.35})
-	g.Add(&Edge{4, 7, 0.37})
-	g.Add(&Edge{5, 7, 0.28})
-	g.Add(&Edge{7, 5, 0.28})
-	g.Add(&Edge{5, 1, 0.32})
-	g.Add(&Edge{0, 4, 0.38})
-	g.Add(&Edge{0, 2, 0.26})
-	g.Add(&Edge{7, 3, 0.39})
-	g.Add(&Edge{1, 3, 0.29})
-	g.Add(&Edge{2, 7, 0.34})
-	g.Add(&Edge{6, 2, 0.4})
-	g.Add(&Edge{3, 6, 0.52})
-	g.Add(&Edge{6, 0, 0.58})
-	g.Add(&Edge{6, 4, 0.93})
+	g := weighted.NewAdjacencyList(8)
+	g.Add(&weighted.Edge{4, 5, 0.35})
+	g.Add(&weighted.Edge{5, 4, 0.35})
+	g.Add(&weighted.Edge{4, 7, 0.37})
+	g.Add(&weighted.Edge{5, 7, 0.28})
+	g.Add(&weighted.Edge{7, 5, 0.28})
+	g.Add(&weighted.Edge{5, 1, 0.32})
+	g.Add(&weighted.Edge{0, 4, 0.38})
+	g.Add(&weighted.Edge{0, 2, 0.26})
+	g.Add(&weighted.Edge{7, 3, 0.39})
+	g.Add(&weighted.Edge{1, 3, 0.29})
+	g.Add(&weighted.Edge{2, 7, 0.34})
+	g.Add(&weighted.Edge{6, 2, 0.4})
+	g.Add(&weighted.Edge{3, 6, 0.52})
+	g.Add(&weighted.Edge{6, 0, 0.58})
+	g.Add(&weighted.Edge{6, 4, 0.93})
 
 	d := NewDijkstra(g, 0)
 	for v := 0; v < g.VertexCount(); v++ {

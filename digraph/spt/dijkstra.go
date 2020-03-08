@@ -3,6 +3,7 @@ package spt
 import (
 	"math"
 
+	"github.com/marselester/alg/digraph/weighted"
 	"github.com/marselester/alg/sort/pqueue"
 )
 
@@ -13,10 +14,10 @@ import (
 //
 // Dijkstra's algorithm uses extra space proportional to V and time proportional to E * log V (in worst case).
 // Another way to think about Dijkstra's algorithm is to compare it to eager version of Prim's algorithm.
-func NewDijkstra(g *AdjacencyList, source int) *Dijkstra {
+func NewDijkstra(g *weighted.AdjacencyList, source int) *Dijkstra {
 	d := Dijkstra{
 		g:      g,
-		edgeTo: make([]*Edge, g.VertexCount()),
+		edgeTo: make([]*weighted.Edge, g.VertexCount()),
 		distTo: make([]float64, g.VertexCount()),
 		pq:     pqueue.NewIndexMinHeap(g.VertexCount()),
 	}
@@ -39,13 +40,13 @@ func NewDijkstra(g *AdjacencyList, source int) *Dijkstra {
 // Dijkstra is an implementation of Dijkstra's algorithm which solves the single-source shortest-paths problem
 // in edge-weighted digraphs with nonnegative weights.
 type Dijkstra struct {
-	g *AdjacencyList
+	g *weighted.AdjacencyList
 	// edgeTo is a parent-edge representation as vertex-indexed array
 	// where edgeTo[v] is the edge that connects v to its parent in the tree
 	// (the last edge on a shortest path from source to v).
 	// It helps to find edges on the shortest-paths tree.
 	// By convention, edgeTo[source] is nil.
-	edgeTo []*Edge
+	edgeTo []*weighted.Edge
 	// distTo is vertex-indexed array such that distTo[v] is the length of the shortest known path from source to v.
 	// It helps to find distance to the source.
 	// By convention, distTo[source] is 0.
@@ -81,11 +82,11 @@ func (d *Dijkstra) HasPathTo(v int) bool {
 }
 
 // PathTo returns a path from source vertex to v or nil if it doesn't exist.
-func (d *Dijkstra) PathTo(v int) []*Edge {
+func (d *Dijkstra) PathTo(v int) []*weighted.Edge {
 	if !d.HasPathTo(v) {
 		return nil
 	}
-	return pathTo(v, d.edgeTo)
+	return weighted.PathTo(v, d.edgeTo)
 }
 
 // NewDijkstraAllPairs finds shortest paths for all vertex pairs
@@ -93,7 +94,7 @@ func (d *Dijkstra) PathTo(v int) []*Edge {
 // It builds an array of Dijkstra objects, one for each vertex as the source.
 // To find a shortest path, it uses the source to access the corresponding single-source
 // shortest-paths object and then passes the target as an argument to the query.
-func NewDijkstraAllPairs(g *AdjacencyList) *DijkstraAllPairs {
+func NewDijkstraAllPairs(g *weighted.AdjacencyList) *DijkstraAllPairs {
 	all := DijkstraAllPairs{
 		sources: make([]*Dijkstra, g.VertexCount()),
 	}
@@ -109,7 +110,7 @@ type DijkstraAllPairs struct {
 }
 
 // PathTo returns a path from source to target vertex or nil if it doesn't exist.
-func (all *DijkstraAllPairs) PathTo(source, target int) []*Edge {
+func (all *DijkstraAllPairs) PathTo(source, target int) []*weighted.Edge {
 	return all.sources[source].PathTo(target)
 }
 
