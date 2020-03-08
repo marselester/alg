@@ -4,7 +4,7 @@ import (
 	"math"
 )
 
-// NewAcyclic finds shortest path in edge-weigthed DAG:
+// NewAcyclic finds shortest path in edge-weighted DAG:
 // init distTo[source] to zero and all other distTo[] entries to positive infinity;
 // then relax the vertices, one by one, taking the vertices in topological order.
 // Algorithm solves the single-source problem in linear time (E + V), handles negative edge weights.

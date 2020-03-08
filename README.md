@@ -18,6 +18,7 @@ Table of contents:
   - [Minimum spanning tree](#minimum-spanning-tree)
 - [Digraph](#digraph)
   - [Shortest paths](#shortest-paths)
+  - [Longest paths](#longest-paths)
 
 ## Sorting
 
@@ -242,3 +243,11 @@ is a faster algorithm for acyclic edge-weighted digraphs that works even when ed
 
 The classic Bellman-Ford algorithm for use in the general case, when cycles may be present, edge weights may be negative,
 and we need algorithms for finding negative-weight cycles and shortest paths in edge-weighted digraphs with no such cycles.
+
+### Longest paths
+
+Find a highest-cost way to get from one vertex to another (negative weights allowed).
+
+- **single-source longest paths**
+  [Topological sort](https://godoc.org/github.com/marselester/alg/digraph/lpt#Acyclic)
+  — is there a directed path from s to a given target vertex t? If so, find a longest path (total weight is maximal).
