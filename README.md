@@ -251,3 +251,6 @@ Find a highest-cost way to get from one vertex to another (negative weights allo
 - **single-source longest paths**
   [Topological sort](https://godoc.org/github.com/marselester/alg/digraph/lpt#Acyclic)
   — is there a directed path from s to a given target vertex t? If so, find a longest path (total weight is maximal).
+- **parallel precedence-constrained scheduling**
+  ([critical path method](https://godoc.org/github.com/marselester/alg/cmd/schedule))
+  is equivalent to a longest-paths problem

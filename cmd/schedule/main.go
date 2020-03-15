@@ -58,7 +58,7 @@ func main() {
 
 	minTime, startTimes, err := findSchedule(jobsCount, os.Stdin)
 	if err != nil {
-		log.Fatalf("schedule: v", err)
+		log.Fatalf("schedule: %v", err)
 	}
 
 	fmt.Printf("Project finish time: %0.2f. Job start times:\n", minTime)
