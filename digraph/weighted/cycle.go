@@ -48,17 +48,21 @@ func (c *cycle) dfs(source int) {
 
 // Cycle returns a first cycle found in the directed graph. When cycle is detected,
 // it finds the vertices from last known source vertex back to itself.
-func Cycle(g *AdjacencyList) []int {
+func Cycle(g *AdjacencyList) []*Edge {
 	c := cyclepath{
 		g:       g,
 		onStack: make([]bool, g.VertexCount()),
 		marked:  make([]bool, g.VertexCount()),
-		edgeTo:  make([]int, g.VertexCount()),
+		edgeTo:  make([]*Edge, g.VertexCount()),
 	}
 	for s := range g.a {
 		if !c.marked[s] {
 			c.dfs(s)
 		}
+	}
+
+	for i, j := 0, len(c.cycle)-1; i < j; i, j = i+1, j-1 {
+		c.cycle[i], c.cycle[j] = c.cycle[j], c.cycle[i]
 	}
 	return c.cycle
 }
@@ -70,9 +74,9 @@ type cyclepath struct {
 	// marked is an array of visited vertices.
 	marked []bool
 	// edgeTo holds a last vertex on known path to a vertex.
-	edgeTo []int
+	edgeTo []*Edge
 	// cycle is the vertices that form a cycle.
-	cycle []int
+	cycle []*Edge
 }
 
 func (c *cyclepath) dfs(source int) {
@@ -87,16 +91,14 @@ func (c *cyclepath) dfs(source int) {
 		// Found the unvisited vertex, need to identify all vertices connected to it
 		// and remember how to get there (path to the unmarked vertex is from the source).
 		case !c.marked[e.W]:
-			c.edgeTo[e.W] = source
+			c.edgeTo[e.W] = e
 			c.dfs(e.W)
-		// Cycle has just been detected, need to backtrack the path.
-		// For example, in 0->5->4->3->5(check) call stack, the last "5" completes the cycle (3<-5<-4<-3),
-		// where source=3 and n.v=5.
 		case c.onStack[e.W]:
-			for x := source; x != e.W; x = c.edgeTo[x] {
+			var x *Edge
+			for x = e; x.V != e.W; x = c.edgeTo[x.V] {
 				c.cycle = append(c.cycle, x)
 			}
-			c.cycle = append(c.cycle, e.W, source)
+			c.cycle = append(c.cycle, x)
 		}
 	}
 

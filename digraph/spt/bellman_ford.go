@@ -61,7 +61,7 @@ type BellmanFord struct {
 	// cost is a number of edge relaxations (number of passes).
 	cost int
 	// cycle is a first cycle (vertices from last known source vertex back to itself) found in the directed graph.
-	cycle []int
+	cycle []*weighted.Edge
 }
 
 // relax relaxes all the edges leaving vertex v.
@@ -71,17 +71,19 @@ func (bf *BellmanFord) relax(v int) {
 	for _, e := range bf.g.Adjacent(v) {
 		if relax(e, bf.distTo, bf.edgeTo) {
 			// Only one copy of each vertex appears on the queue.
-			if bf.onQueue[e.W] {
-				continue
+			if !bf.onQueue[e.W] {
+				bf.q.Enqueue(e.W)
+				bf.onQueue[e.W] = true
 			}
-			bf.q.Enqueue(e.W)
-			bf.onQueue[e.W] = true
 		}
 
 		// Ensure the algorithm terminates after V passes.
 		bf.cost++
 		if bf.cost%bf.g.VertexCount() == 0 {
 			bf.findNegativeCycle()
+			if bf.HasNegativeCycle() {
+				return
+			}
 		}
 	}
 }
@@ -104,7 +106,7 @@ func (bf *BellmanFord) HasNegativeCycle() bool {
 
 // NegativeCycle returns a negative cycle: directed cycle whose total weight
 // (sum of the weights of its edges) is negative.
-func (bf *BellmanFord) NegativeCycle() []int {
+func (bf *BellmanFord) NegativeCycle() []*weighted.Edge {
 	return bf.cycle
 }
 

@@ -58,10 +58,10 @@ func ExampleBellmanFord_NegativeCycle() {
 	g.Add(&weighted.Edge{6, 4, 0.93})
 
 	bf := NewBellmanFord(g, 0)
-	// The expected cycle is 5<-4<-5.
+	// The expected cycle is 4->5->4.
 	fmt.Println(bf.HasNegativeCycle())
 	fmt.Println(bf.NegativeCycle())
 	// Output:
 	// true
-	// [5 4 5]
+	// [4->5 0.35 5->4 -0.66]
 }

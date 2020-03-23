@@ -119,10 +119,10 @@ func findSchedule(jobsCount int, input io.Reader) (float64, []float64, error) {
 		})
 		// Zero-weight edge for precedence constraints: from the end vertex corresponding to v
 		// to the beginning vertex corresponding to w.
-		for _, sucessor := range jobConstraints {
+		for _, successor := range jobConstraints {
 			dag.Add(&weighted.Edge{
 				V: jobFinishIndex,
-				W: sucessor,
+				W: successor,
 			})
 		}
 

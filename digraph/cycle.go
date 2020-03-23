@@ -15,7 +15,7 @@ A depth-first search solution is based on the fact that the recursive function c
 the "current" directed path under consideration.
 If we ever find a directed edge to a vertex that is on that stack, we have found a cycle,
 since the stack is evidence of a directed path.
-For example, in 0->5->4->3->5(check) call stack, the last "5" completes the cycle (3<-5<-4<-3).
+For example, in 0->5->4->3->5(check) call stack, the last "5" completes the cycle (3->5->4->3).
 */
 func HasCycle(g *AdjacencyList) bool {
 	c := cycle{
@@ -76,6 +76,10 @@ func Cycle(g *AdjacencyList) []int {
 			c.dfs(s)
 		}
 	}
+
+	for i, j := 0, len(c.cycle)-1; i < j; i, j = i+1, j-1 {
+		c.cycle[i], c.cycle[j] = c.cycle[j], c.cycle[i]
+	}
 	return c.cycle
 }
 
@@ -106,7 +110,7 @@ func (c *cyclepath) dfs(source int) {
 			c.edgeTo[n.v] = source
 			c.dfs(n.v)
 		// Cycle has just been detected, need to backtrack the path.
-		// For example, in 0->5->4->3->5(check) call stack, the last "5" completes the cycle (3<-5<-4<-3),
+		// For example, in 0->5->4->3->5(check) call stack, the last "5" completes the cycle (3->5->4->3),
 		// where source=3 and n.v=5.
 		case c.onStack[n.v]:
 			for x := source; x != n.v; x = c.edgeTo[x] {

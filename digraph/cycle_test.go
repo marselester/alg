@@ -60,8 +60,8 @@ func ExampleCycle() {
 	g.Add(6, 9)
 	g.Add(7, 6)
 
-	// The expected cycle is 3<-5<-4<-3.
+	// The expected cycle is 3->5->4->3.
 	fmt.Println(Cycle(g))
 	// Output:
-	// [3 4 5 3]
+	// [3 5 4 3]
 }
